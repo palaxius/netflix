@@ -74,6 +74,7 @@ export const SearchIcon = styled.button`
   cursor: pointer;
   background-color: transparent;
   border: 0;
+  outline: none;
   img {
     filter: brightness(0) invert(1);
     width: 16px;
@@ -199,7 +200,7 @@ export const PlayButton = styled.button`
   font-size: 20px;
   margin-top: 10px;
   cursor: pointer;
-  transition: background-color 0.5s ease;
+  transition: background-color 0.8s ease;
   &:hover {
     background-color: #ff1e1e;
     color: white;
