@@ -1,17 +1,17 @@
 import React from 'react';
-import {BrowserRouter as Router, Route} from 'react-router-dom'
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import * as ROUTES from './constants/routes'
-import {Home, Browse, Signin, Signup} from "./pages";
+import {Home, Browse, SignIn, SignUp} from "./pages";
 import {IsUserRedirect, ProtectedRoute} from "./helpers/routes";
-import SignIn from "./pages/signin";
-import SignUp from "./pages/signup";
 import {useAuthListener} from "./hooks";
+import {NotFoundContainer} from "./containers/not-found";
 
 export default function App() {
   const {user} = useAuthListener()
 
   return (
     <Router>
+      <Switch>
 
       <IsUserRedirect user={user} loggedInPath={ROUTES.BROWSE} path={ROUTES.SIGH_IN} exact>
         <SignIn />
@@ -29,6 +29,8 @@ export default function App() {
         <Home />
       </IsUserRedirect>
 
+      <Route component={NotFoundContainer}/>
+      </Switch>
     </Router>
    );
 }

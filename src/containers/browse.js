@@ -5,6 +5,7 @@ import {Header, Loading, Card, Player} from '../components'
 import * as ROUTES from "../constants/routes";
 import logo from "../logo.svg";
 import {FooterContainer} from "./footer";
+import Fuse from 'fuse.js'
 
 export function BrowseContainer({slides}) {
   const [category, setCategory] = useState('series')
@@ -25,13 +26,25 @@ export function BrowseContainer({slides}) {
     setSlideRows(slides[category])
   }, [slides, category])
 
+  useEffect(() => {
+    const fuse = new Fuse(slideRows, {keys: ['data.description', 'data.title', 'data.genre']})
+    const results = fuse.search(searchTerm).map(({item}) => item)
+
+    if (slideRows.length > 0 && searchTerm.length > 3 && results.length > 0) {
+      setSlideRows(results)
+    } else {
+      setSlideRows(slides[category])
+    }
+
+  }, [searchTerm])
+
   return profile.displayName
     ?
     <>
       {loading ? <Loading src={user.photoURL}/> : <Loading.ReleaseBody/>}
       <Header src='joker1' dontShowOnSmallViewPort>
         <Header bg={false}>
-          <Header.Frame>
+          <Header.Frame style={{background: '#000', opacity: '0.7'}}>
             <Header.Group>
               <Header.Logo to={ROUTES.HOME} src={logo} alt='Netflix'/>
               <Header.TextLink active={category === 'series' ? 'true' : 'false'} onClick={() => setCategory('series')}>Series</Header.TextLink>
@@ -57,7 +70,10 @@ export function BrowseContainer({slides}) {
         <Header.Feature>
           <Header.FeatureCallOut>Watch Joker Now</Header.FeatureCallOut>
           <Header.Text>Forever alone in a crowd, failed comedian Arthur Fleck seeks connection as he walks the streets of Gotham City. Arthur wears two masks -- the one he paints for his day job as a clown, and the guise he projects in a futile attempt to feel like he's part of the world around him. Isolated, bullied and disregarded by society, Fleck begins a slow descent into madness as he transforms into the criminal mastermind known as the Joker.</Header.Text>
-          <Header.PlayButton>Play</Header.PlayButton>
+            <Player>
+              <Player.HeaderButton />
+              <Player.Video src="/videos/netflix.mp4" />
+            </Player>
         </Header.Feature>
       </Header>
 
@@ -78,8 +94,8 @@ export function BrowseContainer({slides}) {
             </Card.Entities>
             <Card.Feature category={category}>
               <Player>
-                <Player.Button />
-                <Player.Video src="/videos/bunny.mp4" />
+                <Player.Button header/>
+                <Player.Video src="/videos/netflix.mp4" />
               </Player>
             </Card.Feature>
           </Card>

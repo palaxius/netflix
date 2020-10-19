@@ -1,6 +1,6 @@
 import styled from 'styled-components/macro';
 
-export const Container = styled.div`
+export const Container = styled.form`
   display: flex;
   justify-content: center;
   height: 100%;
@@ -14,6 +14,7 @@ export const Container = styled.div`
 
 export const Input = styled.input`
   max-width: 450px;
+  outline: none;
   width: 100%;
   border: 0;
   padding: 10px;
@@ -38,6 +39,11 @@ export const Button = styled.button`
   font-size: 26px;
   border: 0;
   cursor: pointer;
+  &:disabled {
+  opacity: 0.5;
+  cursor: not-allowed
+}
+  
   img {
     margin-left: 10px;
     filter: brightness(0) invert(1);
@@ -66,3 +72,15 @@ export const Text = styled.p`
     line-height: 22px;
   }
 `;
+
+export const Error = styled.div`
+    display: flex;
+    align-items: center;
+    user-select: none;
+    background: #e87c03;
+    border-radius: 4px;
+    font-size: 14px;
+    color: white;
+    padding: 0 9px;
+    text-align: center;
+`

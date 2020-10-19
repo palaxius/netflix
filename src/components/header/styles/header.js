@@ -13,9 +13,9 @@ export const Background = styled.div`
 
 export const Container = styled.div`
   display: flex;
-  margin: 0 56px;
+  margin: 0 0; // fix
   height: 64px;
-  padding: 18px 0;
+  padding: 18px 56px; // fix
   justify-content: space-between;
   align-items: center;
   a {
@@ -32,6 +32,7 @@ export const Link = styled.p`
   margin-right: 30px;
   font-weight: ${({ active }) => (active === 'true' ? '700' : 'normal')};
   cursor: pointer;
+  width: 50px;
   &:hover {
     font-weight: bold;
   }
@@ -153,7 +154,7 @@ export const Profile = styled.div`
 `;
 
 export const Feature = styled(Container)`
-  padding: 150px 0 500px 0;
+  padding: 150px 0 500px 56px; // fix
   flex-direction: column;
   align-items: normal;
   width: 50%;
@@ -188,21 +189,3 @@ export const Logo = styled.img`
   }
 `;
 
-export const PlayButton = styled.button`
-  box-shadow: 0 0.6vw 1vw -0.4vw rgba(0, 0, 0, 0.35);
-  background-color: #e6e6e6;
-  color: #000;
-  border-width: 0;
-  padding: 10px 20px;
-  border-radius: 5px;
-  max-width: 130px;
-  font-weight: bold;
-  font-size: 20px;
-  margin-top: 10px;
-  cursor: pointer;
-  transition: background-color 0.8s ease;
-  &:hover {
-    background-color: #ff1e1e;
-    color: white;
-  }
-`;

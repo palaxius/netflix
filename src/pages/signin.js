@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import {useHistory} from 'react-router-dom'
 import {FooterContainer} from "../containers/footer";
 import {Form, Header} from "../components";
@@ -24,11 +24,13 @@ export default function SignIn() {
       .then(() => {
         history.push(ROUTES.BROWSE)
       }).catch(error => {
-      setEmailAddress('')
-      setPassword('')
       setError(error.message)
     })
   }
+
+  useEffect(() => {
+    localStorage.removeItem('form-email')
+  }, [])
 
   return (
     <>

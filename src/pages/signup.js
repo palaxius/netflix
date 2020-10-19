@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import {useHistory} from 'react-router-dom'
 import {FooterContainer} from "../containers/footer";
 import {Form, Header} from "../components";
@@ -10,11 +10,16 @@ export default function SignUp() {
   const history = useHistory()
   const {firebase} = useContext(FirebaseContext)
   const [firstName, setFirstName] = useState('')
-  const [emailAddress, setEmailAddress] = useState('')
+  const [emailAddress, setEmailAddress] = useState(localStorage.getItem('form-email'))
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const isInvalid = firstName === '' || password === '' || emailAddress === ''
   const [learnMoreShow, setLearnMoreShow] = useState(false)
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
 
   const handleSignup = (event) => {
     event.preventDefault()
@@ -32,9 +37,6 @@ export default function SignUp() {
         })
       })
       .catch(error => {
-      setFirstName('')
-      setEmailAddress('')
-      setPassword('')
       setError(error.message)
     })
   }

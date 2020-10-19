@@ -2,7 +2,7 @@ import React from 'react';
 import faqsData from '../fixtures/faqs.json'
 import {Accordion, OptForm} from "../components";
 
-export function FaqsContainer() {
+export function FaqsContainer({email, error, onSubmitHandler, setEmail}) {
   return (
     <Accordion>
       <Accordion.Title>Frequently Asked Questions</Accordion.Title>
@@ -13,10 +13,14 @@ export function FaqsContainer() {
             </Accordion.Item>
           )}
 
-          <OptForm>
+          <OptForm onSubmit={onSubmitHandler}>
             <OptForm.Text>Ready to watch? Enter your email to create or restart your membership.</OptForm.Text>
-            <OptForm.Input placeholder='Email address' />
-            <OptForm.Button>Try it now</OptForm.Button>
+            <OptForm.Input value={email} onChange={(event) => setEmail(event.target.value)} placeholder='Email address' />
+            {
+              error
+                ? <OptForm.Error>The email address is badly formatted.</OptForm.Error>
+                : <OptForm.Button disabled={!email}>Try it now</OptForm.Button>
+            }
             <OptForm.Break />
           </OptForm>
     </Accordion>
